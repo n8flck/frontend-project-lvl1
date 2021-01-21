@@ -4,6 +4,7 @@ import {
 } from '@hexlet/pairs';
 import { guessIfEvenGame } from './games/even.js';
 import { calculateNumbers, randomSign } from './games/calculator.js';
+import { getGreatestCommonDivisor } from './games/gcd.js';
 
 const getUserName = () => readlineSync.question('May I have your name? ');
 
@@ -22,16 +23,19 @@ const createPairOfRandomNumbers = () => {
 
 const getAswer = (gameName, numbers, sign) => {
   let answer = '';
+  const number1 = car(numbers);
+  const number2 = cdr(numbers);
   if (gameName === 'calculator') {
     console.log('What is the result of the expression?');
-    const number1 = car(numbers);
-    const number2 = cdr(numbers);
     answer += readlineSync.question(`Question: ${number1} ${sign} ${number2}\nYour answer: `);
   }
   if (gameName === 'even') {
     console.log('Answer "yes" if the number is even, otherwise answer "no".');
-    const numberToVerify = car(numbers);
-    answer += readlineSync.question(`Question: ${numberToVerify}\nYour answer: `);
+    answer += readlineSync.question(`Question: ${number1}\nYour answer: `);
+  }
+  if (gameName === 'divisor') {
+    console.log('Find the greatest common divisor of given numbers.');
+    answer += readlineSync.question(`Question: ${number1} ${number2}\nYour answer: `);
   }
   return answer;
 };
@@ -42,6 +46,9 @@ const playGame = (gameName, numbers, sign) => {
   }
   if (gameName === 'even') {
     return guessIfEvenGame(numbers);
+  }
+  if (gameName === 'divisor') {
+    return getGreatestCommonDivisor(numbers);
   }
   return false;
 };

@@ -4,3 +4,4 @@
 ![CI](https://github.com/n8flck/frontend-project-lvl1/workflows/CI/badge.svg)
 [![asciicast](https://asciinema.org/a/4jzPUi0uNFtCCt9mZ2qZINe0v.svg)](https://asciinema.org/a/4jzPUi0uNFtCCt9mZ2qZINe0v)
 [![asciicast](https://asciinema.org/a/O11w4SnlgscG9j7GcFsXii73D.svg)](https://asciinema.org/a/O11w4SnlgscG9j7GcFsXii73D)
+[![asciicast](https://asciinema.org/a/HV4IGuBEtJeC1ffN6kbcLnHBj.svg)](https://asciinema.org/a/HV4IGuBEtJeC1ffN6kbcLnHBj)
