@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "first hexlet project",
-  "main": "./src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "make test",
     "start": "node index.js"
