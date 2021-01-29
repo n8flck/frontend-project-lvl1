@@ -5,12 +5,14 @@ import {
 import { guessIfEvenGame } from './games/even.js';
 import { calculateNumbers, randomSign } from './games/calculator.js';
 import { getGreatestCommonDivisor } from './games/gcd.js';
+import { generateProgression, findMissingElement } from './games/progression.js';
 
 const getUserName = () => readlineSync.question('May I have your name? ');
 
-const getRandomNumber = (maxLimit = 100) => {
-  const randomNumber = Math.random() * maxLimit;
-  return Math.floor(randomNumber);
+const getRandomNumber = (maxLimit = 100, minlimit = 0) => {
+  const min = Math.ceil(minlimit);
+  const max = Math.floor(maxLimit);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 const makePairs = (number1, number2) => cons(number1, number2);
@@ -21,7 +23,7 @@ const createPairOfRandomNumbers = () => {
   return makePairs(number1, number2);
 };
 
-const getAswer = (gameName, numbers, sign) => {
+const getAswer = (gameName, numbers, sign, progression) => {
   let answer = '';
   const number1 = car(numbers);
   const number2 = cdr(numbers);
@@ -37,10 +39,14 @@ const getAswer = (gameName, numbers, sign) => {
     console.log('Find the greatest common divisor of given numbers.');
     answer += readlineSync.question(`Question: ${number1} ${number2}\nYour answer: `);
   }
+  if (gameName === 'progression') {
+    console.log('What number is missing in the progression?');
+    answer += readlineSync.question(`Question: ${progression.join(' ')}\nYour answer: `);
+  }
   return answer;
 };
 
-const playGame = (gameName, numbers, sign) => {
+const playGame = (gameName, numbers, sign, progression, step) => {
   if (gameName === 'calculator') {
     return calculateNumbers(numbers, sign);
   }
@@ -49,6 +55,9 @@ const playGame = (gameName, numbers, sign) => {
   }
   if (gameName === 'divisor') {
     return getGreatestCommonDivisor(numbers);
+  }
+  if (gameName === 'progression') {
+    return findMissingElement(progression, step);
   }
   return false;
 };
@@ -61,8 +70,11 @@ export const brainGame = (gameName) => {
   while (rounds > 0) {
     const numbers = createPairOfRandomNumbers();
     const sign = randomSign();
-    const userAnswer = getAswer(gameName, numbers, sign);
-    const correctAnswer = playGame(gameName, numbers, sign);
+    const step = getRandomNumber(5, 1);
+    const missingElement = getRandomNumber(9);
+    const progression = generateProgression(numbers, step, missingElement);
+    const userAnswer = getAswer(gameName, numbers, sign, progression);
+    const correctAnswer = playGame(gameName, numbers, sign, progression, step);
     if (userAnswer === correctAnswer) {
       console.log('Correct!');
       if (rounds === 1) {
