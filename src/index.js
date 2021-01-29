@@ -6,6 +6,7 @@ import { guessIfEvenGame } from './games/even.js';
 import { calculateNumbers, randomSign } from './games/calculator.js';
 import { getGreatestCommonDivisor } from './games/gcd.js';
 import { generateProgression, findMissingElement } from './games/progression.js';
+import { guessIfPrime } from './games/prime.js';
 
 const getUserName = () => readlineSync.question('May I have your name? ');
 
@@ -43,6 +44,10 @@ const getAswer = (gameName, numbers, sign, progression) => {
     console.log('What number is missing in the progression?');
     answer += readlineSync.question(`Question: ${progression.join(' ')}\nYour answer: `);
   }
+  if (gameName === 'prime') {
+    console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
+    answer += readlineSync.question(`Question: ${number1}\nYour answer: `);
+  }
   return answer;
 };
 
@@ -58,6 +63,9 @@ const playGame = (gameName, numbers, sign, progression, step) => {
   }
   if (gameName === 'progression') {
     return findMissingElement(progression, step);
+  }
+  if (gameName === 'prime') {
+    return guessIfPrime(numbers);
   }
   return false;
 };
