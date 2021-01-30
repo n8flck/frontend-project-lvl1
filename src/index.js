@@ -15,10 +15,7 @@ const getUserName = () => {
   return name;
 };
 
-const getAnswer = (question, expression) => {
-  console.log(question);
-  return readlineSync.question(`Question: ${expression}\nYour answer: `);
-};
+const getAnswer = (expression) => readlineSync.question(`Question: ${expression}\nYour answer: `);
 
 const getRandomNumber = (maxLimit = 100, minlimit = 1) => {
   const min = Math.ceil(minlimit);
@@ -46,23 +43,35 @@ const playGame = (gameName) => {
   return elements.flat();
 };
 
+const verifyAnswers = (userAnswer, correctAnswer) => (userAnswer === correctAnswer);
+
+const printResults = (result, userAnswer, correctAnswer, name) => {
+  if (result) {
+    console.log('Correct!');
+  } else {
+    console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.\nLet's try again, ${name}!`);
+  }
+};
+
 export const brainGame = (gameName) => {
   const name = getUserName();
   let rounds = 3;
   while (rounds > 0) {
     const gameElements = playGame(gameName);
     const question = car(gameElements[0]);
+    if (rounds === 3) {
+      console.log(question);
+    }
     const expression = cdr(gameElements[0]);
-    const userAnswer = getAnswer(question, expression);
+    const userAnswer = getAnswer(expression);
     const correctAnswer = gameElements[1];
-    if (userAnswer === correctAnswer) {
-      console.log('Correct!');
-      if (rounds === 1) {
-        console.log(`Congratulations, ${name}!`);
-        break;
-      }
-    } else {
-      console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.\nLet's try again, ${name}!`);
+    const result = verifyAnswers(userAnswer, correctAnswer);
+    printResults(result, userAnswer, correctAnswer, name);
+    if (!result) {
+      break;
+    }
+    if (rounds === 1) {
+      console.log(`Congratulations, ${name}!`);
       break;
     }
     rounds -= 1;
