@@ -8,7 +8,12 @@ import { getGCDGameElements } from './games/gcd.js';
 import { getProgressionGameElements } from './games/progression.js';
 import { getPrimeGameElements } from './games/prime.js';
 
-const getUserName = () => readlineSync.question('May I have your name? ');
+const getUserName = () => {
+  console.log('Welcome to the Brain Games!');
+  const name = readlineSync.question('May I have your name? ');
+  console.log(`Hello, ${name}!`);
+  return name;
+};
 
 const getAnswer = (question, expression) => {
   console.log(question);
@@ -42,9 +47,7 @@ const playGame = (gameName) => {
 };
 
 export const brainGame = (gameName) => {
-  console.log('Welcome to the Brain Games!');
   const name = getUserName();
-  console.log(`Hello, ${name}!`);
   let rounds = 3;
   while (rounds > 0) {
     const gameElements = playGame(gameName);
