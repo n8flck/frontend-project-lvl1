@@ -1,5 +1,5 @@
 import {
-  car, cdr,
+  cons,
 } from '@hexlet/pairs';
 
 const signsArray = [
@@ -7,10 +7,12 @@ const signsArray = [
   '+',
   '*',
 ];
-export const randomSign = () => signsArray[Math.floor(Math.random() * signsArray.length)];
 
-/* make calculate method return nubers */
-const calculate = (number1, number2, sign) => {
+const randomSign = () => signsArray[Math.floor(Math.random() * signsArray.length)];
+
+const getQuestionDetails = (expression) => cons('What is the result of the expression?', expression);
+
+const calculateNumbers = (number1, number2, sign) => {
   let result = '';
   switch (sign) {
     case '+':
@@ -26,9 +28,14 @@ const calculate = (number1, number2, sign) => {
   }
   return result;
 };
-/* return (Number.parseInt(answer, 10) */
-export const calculateNumbers = (numbers, sign) => {
-  const number1 = car(numbers);
-  const number2 = cdr(numbers);
-  return calculate(number1, number2, sign);
+
+export const getCalculatorGameElements = (randomNumbers) => {
+  const number1 = randomNumbers();
+  const number2 = randomNumbers();
+  const sign = randomSign();
+  const questionDetails = getQuestionDetails(`${number1} ${sign} ${number2}`);
+  const correctAnswer = calculateNumbers(number1, number2, sign);
+  return [questionDetails, correctAnswer];
 };
+
+export default getCalculatorGameElements;

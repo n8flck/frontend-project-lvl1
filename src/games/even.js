@@ -1,17 +1,25 @@
 import {
-  car,
+  cons,
 } from '@hexlet/pairs';
+
+const getQuestionDetails = (number) => cons('Answer "yes" if the number is even, otherwise answer "no".', number);
 
 const isEven = (number) => (number % 2 === 0);
 
-export const guessIfEvenGame = (numbers) => {
+const guessIfEvenGame = (number) => {
   const positive = 'yes';
   const negative = 'no';
-  const number = car(numbers);
   if (isEven(number)) {
     return positive;
   }
   return negative;
 };
 
-export default guessIfEvenGame;
+export const getEvenGameElements = (randomNumbers) => {
+  const number = randomNumbers();
+  const questionDetails = getQuestionDetails(number);
+  const correctAnswer = guessIfEvenGame(number);
+  return [questionDetails, correctAnswer];
+};
+
+export default getEvenGameElements;

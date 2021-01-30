@@ -1,10 +1,12 @@
 import {
-  car, cdr,
+  cons,
 } from '@hexlet/pairs';
 
-export const getGreatestCommonDivisor = (numbers) => {
-  let absoluteNumber1 = Math.abs((Number.parseInt(car(numbers), 10)));
-  let absoluteNumber2 = Math.abs((Number.parseInt(cdr(numbers), 10)));
+const getQuestionDetails = (numbers) => cons('Find the greatest common divisor of given numbers.', numbers);
+
+const getGreatestCommonDivisor = (number1, number2) => {
+  let absoluteNumber1 = Math.abs(Number.parseInt(number1, 10));
+  let absoluteNumber2 = Math.abs(Number.parseInt(number2, 10));
   if (absoluteNumber1 === 0) {
     return absoluteNumber2;
   }
@@ -18,4 +20,12 @@ export const getGreatestCommonDivisor = (numbers) => {
   return absoluteNumber1.toString();
 };
 
-export default getGreatestCommonDivisor;
+export const getGCDGameElements = (randomNumbers) => {
+  const number1 = randomNumbers();
+  const number2 = randomNumbers();
+  const questionDetails = getQuestionDetails(`${number1} ${number2}`);
+  const correctAnswer = getGreatestCommonDivisor(number1, number2);
+  return [questionDetails, correctAnswer];
+};
+
+export default getGCDGameElements;
