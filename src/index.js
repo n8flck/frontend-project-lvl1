@@ -15,7 +15,12 @@ const getUserName = () => {
   return name;
 };
 
-const getAnswer = (expression) => readlineSync.question(`Question: ${expression}\nYour answer: `);
+const getAnswer = (question, expression, round) => {
+  if (round === 3) {
+    console.log(question);
+  }
+  return readlineSync.question(`Question: ${expression}\nYour answer: `);
+};
 
 const getRandomNumber = (maxLimit = 100, minlimit = 1) => {
   const min = Math.ceil(minlimit);
@@ -43,38 +48,34 @@ const playGame = (gameName) => {
   return elements.flat();
 };
 
-const verifyAnswers = (userAnswer, correctAnswer) => (userAnswer === correctAnswer);
-
-const printResults = (result, userAnswer, correctAnswer, name) => {
-  if (result) {
-    console.log('Correct!');
-  } else {
-    console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.\nLet's try again, ${name}!`);
+const printSuccess = (name, round) => {
+  console.log('Correct!');
+  if (round === 1) {
+    console.log(`Congratulations, ${name}!`);
   }
+};
+
+const printFailure = (name, userAnswer, correctAnswer) => {
+  console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.\nLet's try again, ${name}!`);
 };
 
 export const brainGame = (gameName) => {
   const name = getUserName();
-  let rounds = 3;
-  while (rounds > 0) {
-    const gameElements = playGame(gameName);
-    const question = car(gameElements[0]);
-    if (rounds === 3) {
-      console.log(question);
-    }
-    const expression = cdr(gameElements[0]);
-    const userAnswer = getAnswer(expression);
-    const correctAnswer = gameElements[1];
-    const result = verifyAnswers(userAnswer, correctAnswer);
-    printResults(result, userAnswer, correctAnswer, name);
-    if (!result) {
+  let round = 3;
+  while (round > 0) {
+    const [questionDetails, correctAnswer] = playGame(gameName);
+    const [question, expression] = questionDetails;
+    const userAnswer = getAnswer(question, expression, round);
+    if (userAnswer === correctAnswer) {
+      printSuccess(name, round);
+    } else {
+      printFailure(name, userAnswer, correctAnswer);
       break;
     }
-    if (rounds === 1) {
-      console.log(`Congratulations, ${name}!`);
+    if (round === 1) {
       break;
     }
-    rounds -= 1;
+    round -= 1;
   }
 };
 

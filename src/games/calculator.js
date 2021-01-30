@@ -1,7 +1,3 @@
-import {
-  cons,
-} from '@hexlet/pairs';
-
 const signsArray = [
   '-',
   '+',
@@ -10,7 +6,7 @@ const signsArray = [
 
 const randomSign = () => signsArray[Math.floor(Math.random() * signsArray.length)];
 
-const getQuestionDetails = (expression) => cons('What is the result of the expression?', expression);
+const getQuestionDetails = (expression) => ['What is the result of the expression?', expression];
 
 const calculateNumbers = (number1, number2, sign) => {
   let result = '';

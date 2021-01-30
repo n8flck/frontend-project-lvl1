@@ -1,8 +1,4 @@
-import {
-  cons,
-} from '@hexlet/pairs';
-
-const getQuestionDetails = (numbers) => cons('Find the greatest common divisor of given numbers.', numbers);
+const getQuestionDetails = (numbers) => ['Find the greatest common divisor of given numbers.', numbers];
 
 const getGreatestCommonDivisor = (number1, number2) => {
   let absoluteNumber1 = Math.abs(Number.parseInt(number1, 10));

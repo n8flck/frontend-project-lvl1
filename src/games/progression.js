@@ -1,8 +1,4 @@
-import {
-  cons,
-} from '@hexlet/pairs';
-
-const getQuestionDetails = (progression) => cons('What number is missing in the progression?', progression);
+const getQuestionDetails = (progression) => ['What number is missing in the progression?', progression];
 
 const generateProgression = (number, step, missingElement) => {
   const progression = [];

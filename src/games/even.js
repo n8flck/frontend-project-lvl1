@@ -1,8 +1,4 @@
-import {
-  cons,
-} from '@hexlet/pairs';
-
-const getQuestionDetails = (number) => cons('Answer "yes" if the number is even, otherwise answer "no".', number);
+const getQuestionDetails = (number) => ['Answer "yes" if the number is even, otherwise answer "no".', number];
 
 const isEven = (number) => (number % 2 === 0);
 

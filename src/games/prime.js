@@ -1,8 +1,4 @@
-import {
-  cons,
-} from '@hexlet/pairs';
-
-const getQuestionDetails = (number) => cons('Answer "yes" if given number is prime. Otherwise answer "no".', number);
+const getQuestionDetails = (number) => ['Answer "yes" if given number is prime. Otherwise answer "no".', number];
 
 const isPrime = (number) => {
   for (let i = 2; i < number; i += 1) {
